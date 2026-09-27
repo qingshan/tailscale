@@ -119,9 +119,16 @@ under `dist/demo/`:
 - `tailscale-demo-wide.mp4` — wide video for embeds.
 - `tailscale-demo-poster.png` — poster frame.
 
-`just publish` builds the package and pushes it to the KPM catalog. Set
-`KINDLE_CATALOG_TOKEN` when that remote is HTTPS. A GitHub tag `vX.Y.Z`
-publishes package version `X.Y.Z`.
+Build with `just package X.Y.Z`, then attach
+`dist/tailscale_X.Y.Z_kindlehf.kpkg` to the GitHub Release `vX.Y.Z` before
+publishing it. The GitHub Action updates the KPM catalog with that asset's
+download URL when the release is published, or when run manually. It skips
+publishing if the `KINDLE_CATALOG_TOKEN` secret is missing.
+
+`just publish [X.Y.Z]` publishes an existing release URL to the catalog;
+the version defaults to `kpm/manifest.json`. Set `KINDLE_CATALOG_TOKEN` when
+the catalog remote uses HTTPS. `TAILSCALE_RELEASE_REPO` overrides the default
+release repository, `qingshan/tailscale`.
 
 ## Third-party code
 

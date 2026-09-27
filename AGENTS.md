@@ -16,7 +16,7 @@ just package                           # cross-compile kindlehf + pack .kpkg int
 just package <x.y.z>                   # bump kpm package version while packing
 just package <x.y.z> <tailscale_ver>   # also pin the install-time Tailscale release
 just toolchain                         # once: ~/x-tools kindlehf gcc + liblipc stub
-just publish                           # package and push the KPM catalog (KINDLE_CATALOG_TOKEN)
+just publish                           # publish an existing release URL to the KPM catalog (KINDLE_CATALOG_TOKEN)
 ```
 
 `tests/e2e/tailscale_e2e.py` is the only E2E entry point. Host scenarios use
