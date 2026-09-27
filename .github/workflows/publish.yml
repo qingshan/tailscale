@@ -1,0 +1,29 @@
+name: Publish KPM package
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y gcc rsync
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: armv7-unknown-linux-gnueabihf
+      - uses: extractions/setup-just@v2
+      - name: Publish package
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            just publish "${GITHUB_REF_NAME#v}"
+          else
+            just publish
+          fi
+        env:
+          KINDLE_CATALOG_TOKEN: ${{ secrets.KINDLE_CATALOG_TOKEN }}

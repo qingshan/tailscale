@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>tailscale</title>
+<link rel="stylesheet" type="text/css" href="waf-base.css">
+<link rel="stylesheet" type="text/css" href="style.css?v=0.6.0">
+</head>
+<body>
+<div class="page">
+    <div class="top">
+        <div class="brand-lockup">
+            <div class="brand-icon" aria-hidden="true">&#xF0C2;</div>
+            <div class="brand-copy">
+                <div class="eyebrow">PRIVATE NETWORK</div>
+                <h1>tailscale</h1>
+            </div>
+        </div>
+        <div class="toolbar">
+            <button id="btn-refresh" type="button" class="refresh-button" title="Refresh status" aria-label="Refresh status">
+                <span class="button-glyph" aria-hidden="true">&#xF2F1;</span>
+                <span>Refresh</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="section-label">CONNECTION</div>
+    <div class="connection-card">
+        <div id="state" class="state state-unknown">Checking&hellip;</div>
+        <div id="summary" class="summary">Checking this Kindle&rsquo;s Tailscale connection.</div>
+
+        <div class="divider"></div>
+        <div class="detail-row">
+            <div class="detail-label">TAILSCALE BACKEND</div>
+            <div id="details" class="detail-value">Waiting for status</div>
+        </div>
+        <div class="detail-row last-row">
+            <div class="detail-label">LAST UPDATED</div>
+            <div id="updated" class="detail-value">&nbsp;</div>
+        </div>
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <div class="section-label controls-label">CONTROLS</div>
+    <div class="actions">
+        <button id="btn-start" type="button" class="action-button primary">Start</button>
+        <button id="btn-stop" type="button" class="action-button">Stop</button>
+    </div>
+    <div class="footer-note">Status refreshes automatically.</div>
+</div>
+<script type="text/javascript" src="waf-base.js"></script>
+<script type="text/javascript" src="script.js?v=0.6.0"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "id": "tailscale",
+  "name": "tailscale",
+  "author": "Qingshan",
+  "description": "Connect a Kindle to a Tailscale network",
+  "version": [
+    0,
+    6,
+    0
+  ],
+  "dependencies": [],
+  "supported_platforms": [
+    "kindlehf"
+  ]
+}

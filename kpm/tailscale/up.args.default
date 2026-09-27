@@ -1,0 +1,1 @@
+--hostname=kindle --accept-routes --accept-dns --netfilter-mode=off --tun=userspace-networking --socks5-server=127.0.0.1:1055 --outbound-http-proxy-listen=127.0.0.1:1056 --ssh

@@ -1,0 +1,166 @@
+/* E-ink-first Tailscale control panel. Mesquite supports CSS2 only. */
+
+@font-face {
+    font-family: "JBMonoNerd";
+    src: url("fonts/JetBrainsMonoNerdFontMono-Regular.ttf");
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    background: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+button, h1, p, .page, .top { margin: 0; }
+
+.page { padding: 0.8em; }
+
+.top {
+    min-height: 3.4em;
+    padding-bottom: 0.55em;
+    border-bottom: 2px solid #000;
+    overflow: hidden;
+}
+
+.brand-lockup {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.brand-icon {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    margin-right: 0.35em;
+    border: 2px solid #000;
+    font-family: "JBMonoNerd", monospace;
+    font-size: 1.15em;
+    line-height: 1.8em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.brand-copy { display: inline-block; vertical-align: middle; }
+
+.eyebrow, .section-label, .detail-label, .footer-note {
+    font-family: "JBMonoNerd", monospace;
+    letter-spacing: 0.08em;
+}
+
+.eyebrow {
+    margin-bottom: 0.12em;
+    font-size: 0.58em;
+    font-weight: bold;
+}
+
+.brand-copy h1 {
+    font-size: 1.35em;
+    line-height: 1.1;
+}
+
+.toolbar { float: right; margin-top: 0.42em; }
+
+.refresh-button, .action-button {
+    border: 2px solid #000;
+    background: #fff;
+    color: #000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.refresh-button {
+    min-width: 5.5em;
+    height: 2.55em;
+    padding: 0 0.55em;
+    font-size: 0.7em;
+}
+
+.button-glyph {
+    margin-right: 0.25em;
+    font-family: "JBMonoNerd", monospace;
+}
+
+.section-label {
+    margin: 0.95em 0 0.35em 0.1em;
+    font-size: 0.62em;
+    font-weight: bold;
+}
+
+.connection-card {
+    padding: 0.9em;
+    border: 2px solid #000;
+    border-top-width: 0.45em;
+}
+
+.state {
+    display: inline-block;
+    padding: 0.18em 0.55em;
+    border: 2px solid #000;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.state-up { background: #000; color: #fff; }
+.state-down { background: #fff; color: #000; }
+.state-unknown { border-style: dashed; background: #fff; color: #333; }
+
+.summary {
+    max-width: 34em;
+    margin: 0.6em 0 0.8em 0;
+    font-size: 0.9em;
+    line-height: 1.35;
+}
+
+.divider { border-top: 1px solid #000; margin: 0.65em 0; }
+
+.detail-row { margin: 0.5em 0; }
+.last-row { margin-bottom: 0; }
+
+.detail-label {
+    margin-bottom: 0.12em;
+    font-size: 0.58em;
+    color: #444;
+}
+
+.detail-value {
+    min-height: 1.1em;
+    font-size: 0.82em;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.error {
+    min-height: 0.7em;
+    margin: 0.35em 0 0 0;
+    font-size: 0.75em;
+    font-weight: bold;
+    line-height: 1.25;
+    word-wrap: break-word;
+}
+
+.controls-label { margin-top: 0.9em; }
+
+.actions { white-space: nowrap; }
+
+.action-button {
+    width: 48.5%;
+    height: 3.15em;
+    margin-right: 1%;
+    padding: 0.3em;
+    font-size: 0.9em;
+}
+
+#btn-stop { margin-right: 0; }
+.action-button.primary { background: #000; color: #fff; }
+
+button:active { background: #000; color: #fff; }
+.action-button.primary:active { background: #fff; color: #000; }
+
+.footer-note {
+    margin-top: 0.65em;
+    font-size: 0.57em;
+    color: #444;
+}
