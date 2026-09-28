@@ -18,11 +18,6 @@ STATUS_PATH = "/var/local/mesquite/tailscale/status.json"
 XINPUT_REMOTE = "/tmp/kindle_xinput"
 XINPUT_BINARY = ROOT / "target/kindlehf-x11/bin/kindle_xinput"
 PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
-# CLOSE on Mesquite's centered Application Error dialog, measured on a
-# 1264x1680 Oasis framebuffer. The word sits just above the dialog's
-# bottom rule.
-ERROR_CLOSE = (987, 999)
-
 SSH_OPTIONS = ["-o", "BatchMode=yes", "-o", "ConnectTimeout=15",
                "-o", "ServerAliveInterval=5", "-o", "ServerAliveCountMax=3"]
 
@@ -58,27 +53,18 @@ class Device:
                  + ("1" if on else "0"), check=False)
 
     def launch(self):
-        """Open the WAF and wait until kpm launch has exited.
-
-        status.json can already be readable while appmgrd is still starting
-        the page. Waiting on the launch script avoids treating the previous
-        framebuffer as the new screen. The script is detached so it survives
-        this ssh session.
-        """
-        self.ssh("rm -f /tmp/tailscale-launch.done; "
-                 "setsid sh -c '/var/local/kmc/bin/kpm launch tailscale "
-                 ">/mnt/us/tailscale/var/launch_ssh.txt 2>&1; "
-                 "echo $? > /tmp/tailscale-launch.done' "
-                 "</dev/null >/dev/null 2>&1 &",
-                 check=False)
+        """Launch through the same shell integration used by Library covers."""
+        self.ssh("lipc-set-prop com.lab126.appmgrd start "
+                 "app://tech.hackerdude.shell_integration.launcher/mnt/us/documents/tailscale.sh")
         deadline = time.monotonic() + 50
+        stable = 0
         while time.monotonic() < deadline:
-            done = self.ssh("cat /tmp/tailscale-launch.done 2>/dev/null",
-                            check=False).stdout.strip()
-            if done != "":
+            active = self.ssh("lipc-get-prop com.lab126.appmgrd activeApp").stdout.strip()
+            stable = stable + 1 if active == "dev.qingshan.tailscale" else 0
+            if stable >= 4:
                 return self.status()
             time.sleep(1)
-        raise TimeoutError("kpm launch did not finish")
+        raise TimeoutError("Library launch did not leave Tailscale in the foreground")
 
     def screenshot(self):
         out = self.ssh('f=/tmp/tailscale-shot.png; /usr/sbin/screenshot -f "$f"; cat "$f"',
@@ -145,34 +131,15 @@ class Device:
         return badge > total * 0.8
 
     def foreground(self, timeout=50):
-        """Wait until the Tailscale screen is painted, with no system dialog.
-
-        A screen that is already showing the connection card is left alone.
-        Launching kills Mesquite, and appmgrd often leaves an Application
-        Error dialog over the new page, so that launch is only used when
-        the card is not up. CLOSE is tapped at most a few times.
-        """
+        """Launch from the Library and require a clean connection screen."""
+        self.launch()
         deadline = time.monotonic() + timeout
-        launched = False
-        dismissals = 0
         while time.monotonic() < deadline:
             image = self.screenshot()
             if self.application_error_visible(image):
-                dismissals += 1
-                if dismissals > 4:
-                    raise TimeoutError("Application Error dialog stayed up")
-                print("closing Application Error dialog", flush=True)
-                self.tap(ERROR_CLOSE[0], ERROR_CLOSE[1], pause=800)
-                time.sleep(1.5)
-                continue
+                raise RuntimeError("Application Error dialog during Library launch")
             if self.waf_clean(image):
                 return image
-            if not launched:
-                print("launching Tailscale WAF", flush=True)
-                self.launch()
-                launched = True
-                time.sleep(2)
-                continue
             time.sleep(1)
         raise TimeoutError("Tailscale WAF did not reach the foreground")
 

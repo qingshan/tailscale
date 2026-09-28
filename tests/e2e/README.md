@@ -18,8 +18,8 @@ pretty-printed `BackendState`.
 
 `just demo` runs that host suite, then the tour against `ssh kindle`.
 Override the alias with `KINDLE_E2E_HOST`. The Kindle must already be
-connected. The tour launches the WAF, closes Mesquite's Application Error
-dialog if that launch leaves it up, and captures a frame only when the
+connected. The tour launches through the Library shell integration, fails if an
+Application Error dialog appears, and captures a frame only when the
 connection card and the Connected badge are visible. It then taps Refresh
 and checks that `status.json` was rewritten. Start and Stop are visible on
 that screen and are covered by the host WAF test; the tour does not press

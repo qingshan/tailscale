@@ -32,10 +32,10 @@ status, a failed start log, and a pretty-printed `BackendState`.
 `just demo` needs SSH alias `kindle` (override with `KINDLE_E2E_HOST`), the
 Kindle already connected to the tailnet, ffmpeg, and Pillow. The tour:
 
-- opens the WAF and waits until the connection card is on screen. If
-  Mesquite leaves its Application Error dialog up, the tour taps CLOSE
-  and waits for the card. A frame is kept only when that card and the
-  black Connected badge are visible;
+- launches through the Library shell integration and requires the app to
+  remain in the foreground. An Application Error dialog fails the test.
+  A frame is kept only when the connection card and black Connected badge
+  are visible;
 - requires `backendState` `Running` before accepting a frame;
 - taps Refresh at framebuffer pixel `(1121, 321)` and requires a newer
   `status.json`;
