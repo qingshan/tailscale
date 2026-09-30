@@ -134,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var btnStart = byId("btn-start");
     var btnStop = byId("btn-stop");
     var btnRefresh = byId("btn-refresh");
-
     if (btnStart) {
         bindPress(btnStart, function () {
             setState("Starting…", "state-unknown");
